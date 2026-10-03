@@ -51,6 +51,8 @@ public class NumberGuess {
         SetHint("No Hints Right Now");
         SetRun(true);
     }
+
+    // Getters / Setters
     public Integer GetRandomNumber() {
         return randomNumber_;
     }
@@ -60,7 +62,7 @@ public class NumberGuess {
     protected Integer GetBestGuess() {
         return bestGuess_;
     }
-    protected Integer GetReduction() {
+    private Integer GetReduction() {
         return reduction_;
     }
     protected Boolean GetRun() {
@@ -69,43 +71,45 @@ public class NumberGuess {
     protected String GetHint() {
         return hint_;
     }
-    protected void SetHint(String hint) {
+    private void SetHint(String hint) {
         hint_ = hint;
     }
-    protected void SetRun(Boolean run) {
+    private void SetRun(Boolean run) {
         run_ = run;
     }
-    protected void SetReduction(Integer reduction) {
+    private void SetReduction(Integer reduction) {
         if(reduction == 0){
             reduction = 1;
         }
         reduction_ = reduction;
     }
-    protected void SetBestGuess(Integer bestGuess) {
+    private void SetBestGuess(Integer bestGuess) {
         bestGuess_ = bestGuess;
     }
-    protected void SetRandomNumber(Integer randomNumber) {
+    private void SetRandomNumber(Integer randomNumber) {
         randomNumber_ = randomNumber;
     }
     protected void SetCount(Integer count) {
         count_ = count;
     }
 
+    // Update Methods
     protected void IncreaseCount(){
         SetCount(GetCount() + 1);
     }
 
-    protected void UpdateReduction(){
+    private void UpdateReduction(){
         SetReduction(Math.round(GetReduction() / 2));
     }
 
-    protected void UpdateBestGoal(Integer direction){
+    private void UpdateBestGoal(Integer direction){
         SetBestGuess(GetBestGuess() + (direction * GetReduction()));
         
         UpdateReduction();
     }
 
-    protected Integer CheckDirection(Integer guess){
+    // Check Methods
+    private Integer CheckDirection(Integer guess){
         if (guess > GetRandomNumber()){
             SetHint("Too High");
             return -1;
@@ -115,7 +119,7 @@ public class NumberGuess {
         }
         return 0;
     }
-    protected Object CheckGuess(Integer guess){
+    private Object CheckGuess(Integer guess){
         Integer check = CheckDirection(guess);
         if (check == 0){
             return true;
@@ -124,6 +128,7 @@ public class NumberGuess {
         }
     }
 
+    // Guess Method
     protected void Guess(Integer guess){
         Object check = CheckGuess(guess);
         if (check instanceof Integer direction){
@@ -150,7 +155,7 @@ class PlayableNumberGuess extends NumberGuess{
         hints_ = hints;
     }
 
-    public void Guess(){
+    private void Guess(){
         Integer guess = Support.GetIntInput("What is your guess? ");
         super.Guess(guess);
     }
@@ -174,6 +179,7 @@ class PlayableNumberGuess extends NumberGuess{
         }
     }
 }
+
 class AutoNumberGuess extends NumberGuess{
     AutoNumberGuess(Integer max){
         super(max);
@@ -185,14 +191,13 @@ class AutoNumberGuess extends NumberGuess{
         super(min, max, randomNum);
     }
 
-    public void Guess(){
+    private void Guess(){
         super.Guess(GetBestGuess());
     }
 
     public void Run(){
         SetCount(0);
         while (GetRun()) {
-            // Support.Display(GetBestGuess());
             Guess();
         }
     }

@@ -15,11 +15,13 @@ import java.util.Random;
 public class Support {
     private static final Scanner scanner = new Scanner(System.in);
 
+    // Clear Terminal
     public static void Clear(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    // Print to Terminal
     public static void Display(Object string, boolean newLine){
         if(newLine){
             System.out.println(string);
@@ -33,6 +35,8 @@ public class Support {
     public static void Display(){
         System.out.println();
     }
+
+    // Get Input from User in Terminal
     public static String Input(Object string, boolean newLine){        
         Display(string, newLine);
         String rvalue = scanner.nextLine();
@@ -52,11 +56,13 @@ public class Support {
         return rvalue;
     }
 
+    // Get Random Integer
     public static Integer GetRandomInt(Integer min, Integer max){
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
     }
 
+    // Conversions
     public static Integer ToInt(String value){
         return Integer.parseInt(value);
     }
@@ -73,6 +79,7 @@ public class Support {
         return Boolean.parseBoolean(value);
     }
 
+    // Get Valid Integer by Input
     public static Integer GetIntInput(Object prompt){
         int rvalue = 0;
         Boolean flag = true;
@@ -91,7 +98,7 @@ public class Support {
 
         return rvalue;
     }
-
+    // Default Integer Value Input
     public static Integer GetIntInput(Object prompt, Integer defaultValue){
         Integer rvalue = defaultValue;
         try
@@ -103,6 +110,7 @@ public class Support {
         return rvalue;
     }
 
+    // Retrieves a list of coordinates arranged in a square
     public static List<int[]> GetCoordsSquare(int radius, int[] center){
         int x = radius;
         int y = radius;
@@ -129,6 +137,8 @@ public class Support {
         squareCoordinates = RemoveListRedundancies(squareCoordinates);
         return squareCoordinates;
     }
+
+    // Removes duplicates from provided list
     public static <T> List<T> RemoveListRedundancies(List<T> oldList)
     {
         List<T> newList = new ArrayList<>();
@@ -142,6 +152,7 @@ public class Support {
         return newList;
     }
 
+    // Checks items in list for equivalency to item provided
     public static <T> boolean ListContainsItem(T[] item, List<T[]> list)
     {
         for(T[] compare : list)
@@ -165,6 +176,7 @@ public class Support {
         return false;
     }
     
+    // Combined content of one list to another
     public static <T> List<T> IntegrateLists(List<T> baseList, List<T> additionalList)
     {
         for(T item : additionalList)
@@ -173,7 +185,8 @@ public class Support {
         }
         return baseList;
     }
-    // public static int GetLineLength(int )
+    
+    // Gathers a list of coordinates that form a straight line from pointA to pointB
     public static List<int[]> GetLineCoordinates(int[] pointA, int[] pointB, int thickness)
     {
         // a^2 + b^2 = c^2     (a^2 + b^2)^(1/2) = c
@@ -198,7 +211,7 @@ public class Support {
     {
         // a^2 + b^2 = c^2     (a^2 + b^2)^(1/2) = c
 
-        // y = mx + b
+        // x = my + b
         double run = pointB[1] - pointA[1];
         double rise = pointB[0] - pointA[0];
 
@@ -220,7 +233,6 @@ public class Support {
 
         for(int i = -thickness; i < thickness+1; i++)
         {
-            // double lineLength = (run^2 + rise^2)^(1/2);
             double yIntercept = (pointA[otherIndex] - (rate * pointA[index])) + i;
 
             if(higher > 0)
@@ -278,7 +290,6 @@ public class Support {
 
         for(int i = -thickness; i < thickness+1; i++)
         {
-            // double lineLength = (run^2 + rise^2)^(1/2);
             double yIntercept = (pointA[otherIndex] - (rate * pointA[index])) + i;
 
             if(higher > 0)
@@ -310,6 +321,8 @@ public class Support {
         int thickness = 0;
         return GetXBaseLineCoordinates(pointA, pointB, thickness);
     }
+
+    // Rounds nonWhole coordinates to Whole coordinates
     public static List<int[]> ApproximateCoordinates(List<double[]> coordinateList, boolean wideGirth)
     {
         List<int[]> approximatedCoordinates = new ArrayList<>();
@@ -349,6 +362,7 @@ public class Support {
         return approximatedCoordinates;
     }
 
+    // Applies quality to items of list and checks attribute of said quality
     public static <T, K> boolean ListHasQuality(List<T> list, Function<T, K> GetQuality, K quality){
         for(T item : list){
             if (GetQuality.apply(item).equals(quality)){
@@ -358,6 +372,7 @@ public class Support {
         return false;
     }
     
+    // returns the duplicate items between two lists
     public static <T> List<T> GetOverlap(List<T> listOne, List<T> listTwo)
     {
         List<T> rList = new ArrayList<>();
@@ -371,6 +386,7 @@ public class Support {
         return rList;
     }
 
+    // Saves content to a file
     public static void SaveFile(String fileName, Object content){
         try{
             String newContent;
@@ -390,7 +406,7 @@ public class Support {
         }
     }
     
-
+    // Retrieves something from a complex Dictionary or List that requires more than one .get()
     @SuppressWarnings("unchecked")
     public static <T> T Get(Map<String, Object> data, List<Object> address){
         Map<String, Object> dict = data;
@@ -479,15 +495,6 @@ public class Support {
     public static <T> T Get(List<Object> data, Object address){
         return Get(data, List.of(address));
     }
-    // Word
-    public static <T> T Get(String data, Integer key){
-        List<Object> list = new ArrayList<>();
-        for (Character letter : data.toCharArray()){
-            list.add(letter);
-        }
-        return Get(list, List.of(key));
-    }
-    
     @SuppressWarnings("unchecked")
     public static Map<String, Object> AsMap(Object encrypted){
         return (Map<String, Object>) encrypted;
@@ -497,7 +504,16 @@ public class Support {
         return (List<Object>) encrypted;
     }
 
+    // Retrieves letter from a word
+    public static <T> T Get(String data, Integer key){
+        List<Object> list = new ArrayList<>();
+        for (Character letter : data.toCharArray()){
+            list.add(letter);
+        }
+        return Get(list, List.of(key));
+    }
     
+    // Assigns item into a complicated list or dictionary that requires more than one .put()
     public static <T> Map<String, Object> Put(Map<String, Object> data, List<Object> address, Object key, T value, Boolean insert){
         if (key instanceof String key_){
             if (key_.equals("append")){
@@ -526,8 +542,6 @@ public class Support {
     public static <T> Map<String, Object> Put(Map<String, Object> data, List<Object> address, Object key, T value){
         return Put(data, address, key, value, false);
     }
-
-
     public static <T> List<Object> Put(List<Object> data, List<Object> address, Object key, T value, Boolean insert){
         if (key instanceof String key_){
             if (key_.equals("append")){
@@ -590,6 +604,7 @@ public class Support {
         return Put(data, key, value, false);
     }
     
+    // Truncates content of string from and after the first indicator in string
     public static String Truncate(String word, String indicator){
         String rvalue = "";
         for (int i = 0; i < word.length(); i++) {
@@ -604,6 +619,8 @@ public class Support {
         return rvalue;
     }
 }
+
+// Extract data from a file
 class Data {
     public Map<String, Object> variables = new HashMap<>();
 
@@ -648,11 +665,15 @@ class Data {
     }
 }
 
+// Implement to classes meant to be capable of displaying to a Terminal as a single *thing*
 interface Visual {
     public void Display();
     public int[] GetXY();
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// WIP
 // class ConsoleDisplay {
 //     private Field _field;
 
@@ -668,5 +689,4 @@ interface Visual {
 //             Support.Display();
 //         }
 //     }
-
 // }

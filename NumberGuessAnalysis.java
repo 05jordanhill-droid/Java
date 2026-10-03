@@ -18,7 +18,7 @@ public class NumberGuessAnalysis {
     }
 
     // Single Data point
-    public static Map<String, Integer> FindHardestToGuess(Integer range){
+    private static Map<String, Integer> FindHardestToGuess(Integer range){
         Map<String, Integer> hardestNumCount = new HashMap<>();
         
         // x
@@ -57,7 +57,8 @@ public class NumberGuessAnalysis {
         }
     }
 
-    public void GraphDataPoint(Map<String, Integer> dataPoint){
+    // Display Graph Point
+    private void GraphDataPoint(Map<String, Integer> dataPoint){
         Integer x = dataPoint.get("Number");
         Integer y = dataPoint.get("Count");
 
@@ -72,6 +73,8 @@ public class NumberGuessAnalysis {
         }
         Support.Display("O");
     }
+
+    // Display Whole Graph
     public void GraphData(){
         Support.Display("Range is the maximal value in the range to guess for.");
         Support.Display("Number is the number that was the hardest to pinpoint.");

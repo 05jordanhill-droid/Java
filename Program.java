@@ -7,12 +7,14 @@ public class Program {
         while (flag) {
             flag = false;
             
+            // Main Menu Options
             Support.Display("1. Normal Play");
             Support.Display("2. Robot Play");
             Support.Display("3. Analyze Robot Patterns");
             String choice = Support.Input("Which mode would you like to try out?\n>", false).toLowerCase().strip();
             Support.Clear();
 
+            // Normal Mode
             if (choice.equals("normal") || choice.equals("normal play") || choice.equals("1")){
                 Integer min = Support.GetIntInput("Enter Minimal Value (Default: 1) \n>", 1);
                 Integer max = Support.GetIntInput("Enter Maximal Value (Default: 100) \n>", 100);
@@ -21,7 +23,9 @@ public class Program {
 
                 PlayableNumberGuess game = new PlayableNumberGuess(min, max, true);
                 game.Run();
-            } else if (choice.equals("robot") || choice.equals("robot play") || choice.equals("2")){
+            } 
+            // Robot Mode 
+            else if (choice.equals("robot") || choice.equals("robot play") || choice.equals("2")){
                 Integer min = Support.GetIntInput("Enter Minimal Value (Default: 1) >", 1);
                 Integer max = Support.GetIntInput("Enter Maximal Value (Default: 100) >", 100);
 
@@ -32,7 +36,9 @@ public class Program {
 
                 Support.Display("Random Number: " + game.GetRandomNumber());
                 Support.Display("Number of guesses: " + game.GetCount());
-            } else if (choice.equals("analyze") || choice.equals("analyze robot patterns") || choice.equals("3")){
+            } 
+            // Analyze Mode
+            else if (choice.equals("analyze") || choice.equals("analyze robot patterns") || choice.equals("3")){
                 Integer max = Support.GetIntInput("Enter Maximal Value (Default: 10) >", 10);
                 
                 Support.Clear();
