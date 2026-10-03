@@ -1,4 +1,4 @@
-public class NumberGuess {
+public abstract class NumberGuess {
     private Boolean run_;
     private Integer randomNumber_;
     private Integer count_;
@@ -138,6 +138,8 @@ public class NumberGuess {
         }
         IncreaseCount();
     }
+
+    public abstract void Run();
 }
 
 class PlayableNumberGuess extends NumberGuess{
