@@ -5,42 +5,53 @@ public class NumberGuess {
     private Integer randomNumber_;
     private Integer count_;
     private Integer bestGuess_;
-    private Integer bestLowGuess_;
-    private Integer bestHighGuess_;
-    private Integer reductionHigh_;
-    private Integer reductionLow_;
     private Integer reduction_;
     private String hint_;
 
     NumberGuess(Integer min, Integer max){
         SetRandomNumber(Support.GetRandomInt(min, max));
-        SetLowReduction(Math.floorDiv((max-min), 2));
-        SetHighReduction(Math.ceilDiv((max-min), 2));
         SetReduction(Math.round((max-min) / 2));
         SetBestGuess(min + GetReduction());
-        SetBestLowGuess(min + GetLowReduction());
-        SetBestHighGuess(min + GetHighReduction());
+
+        if (GetBestGuess() > max){
+            SetBestGuess(max);
+        } else if (GetBestGuess() < min){
+            SetBestGuess(min);
+        }
+
+        UpdateReduction();
         SetHint("No Hints Right Now");
+        SetRun(true);
     }
     NumberGuess(Integer max){
         SetRandomNumber(Support.GetRandomInt(0, max));
-        SetLowReduction(Math.floorDiv((max), 2));
-        SetHighReduction(Math.ceilDiv((max), 2));
         SetReduction(Math.round((max) / 2));
         SetBestGuess(GetReduction());
-        SetBestLowGuess(GetLowReduction());
-        SetBestHighGuess(GetHighReduction());
+
+        if (GetBestGuess() > max){
+            SetBestGuess(max);
+        } else if (GetBestGuess() < 1){
+            SetBestGuess(1);
+        }
+
+        UpdateReduction();
         SetHint("No Hints Right Now");
+        SetRun(true);
     }
     NumberGuess(Integer min, Integer max, Integer randomNum){
         SetRandomNumber(randomNum);
-        SetLowReduction(Math.floorDiv((max-min), 2));
-        SetHighReduction(Math.ceilDiv((max-min), 2));
         SetReduction(Math.round((max-min) / 2));
         SetBestGuess(min + GetReduction());
-        SetBestLowGuess(min + GetLowReduction());
-        SetBestHighGuess(min + GetHighReduction());
+
+        if (GetBestGuess() > max){
+            SetBestGuess(max);
+        } else if (GetBestGuess() < min){
+            SetBestGuess(min);
+        }
+
+        UpdateReduction();
         SetHint("No Hints Right Now");
+        SetRun(true);
     }
     public Integer GetRandomNumber() {
         return randomNumber_;
@@ -54,18 +65,6 @@ public class NumberGuess {
     protected Integer GetReduction() {
         return reduction_;
     }
-    protected Integer GetLowReduction() {
-        return reductionLow_;
-    }
-    protected Integer GetHighReduction() {
-        return reductionHigh_;
-    }
-    protected Integer GetBestHighGuess() {
-        return bestHighGuess_;
-    }
-    protected Integer GetBestLowGuess() {
-        return bestLowGuess_;
-    }
     protected Boolean GetRun() {
         return run_;
     }
@@ -77,24 +76,6 @@ public class NumberGuess {
     }
     protected void SetRun(Boolean run) {
         run_ = run;
-    }
-    protected void SetBestLowGuess(Integer bestLowGuess) {
-        bestLowGuess_ = bestLowGuess;
-    }
-    protected void SetBestHighGuess(Integer bestHighGuess) {
-        bestHighGuess_ = bestHighGuess;
-    }
-    protected void SetHighReduction(Integer reduction) {
-        if(reduction == 0){
-            reduction = 1;
-        }
-        reductionHigh_ = reduction;
-    }
-    protected void SetLowReduction(Integer reduction) {
-        if(reduction == 0){
-            reduction = 1;
-        }
-        reductionLow_ = reduction;
     }
     protected void SetReduction(Integer reduction) {
         if(reduction == 0){
@@ -117,15 +98,11 @@ public class NumberGuess {
     }
 
     protected void UpdateReduction(){
-        SetLowReduction(Math.floorDiv(GetLowReduction(), 2));
-        SetHighReduction(Math.ceilDiv(GetHighReduction(), 2));
         SetReduction(Math.round(GetReduction() / 2));
     }
 
     protected void UpdateBestGoal(Integer direction){
         SetBestGuess(GetBestGuess() + (direction * GetReduction()));
-        SetBestLowGuess(GetBestLowGuess() + (direction * GetLowReduction()));
-        SetBestHighGuess(GetBestHighGuess() + (direction * GetHighReduction()));
         
         UpdateReduction();
     }
@@ -193,9 +170,9 @@ class PlayableNumberGuess extends NumberGuess{
             }
         }
         if (GetCount() > 1){
-            Support.Display("You took " + GetCount() + "tries.");
+            Support.Display("You took " + GetCount() + " tries.");
         } else {
-            Support.Display("You took " + GetCount() + "try.");
+            Support.Display("You took " + GetCount() + " try.");
         }
     }
 }
@@ -217,12 +194,8 @@ class AutoNumberGuess extends NumberGuess{
     public void Run(){
         SetCount(0);
         while (GetRun()) {
+            // Support.Display(GetBestGuess());
             Guess();
-        }
-        if (GetCount() > 1){
-            Support.Display("It took " + GetCount() + "tries.");
-        } else {
-            Support.Display("It took " + GetCount() + "try.");
         }
     }
 
@@ -230,8 +203,6 @@ class AutoNumberGuess extends NumberGuess{
         for (int i = 0; i < times; i++) {
             Run();
         }
-    }
-
-    
+    }    
 }
 

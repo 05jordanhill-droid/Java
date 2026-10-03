@@ -16,11 +16,8 @@ public class Support {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void Clear(){
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
-        } catch (IOException e) {
-            Display("ERROR: Could not clear terminal.");
-        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void Display(Object string, boolean newLine){
@@ -83,8 +80,7 @@ public class Support {
         {
             try
             {
-                Display(prompt, false);
-                String inputStr = Input();
+                String inputStr = Input(prompt, false);
                 rvalue = ToInt(inputStr);
                 flag = false;
             } catch (Exception e)
@@ -92,6 +88,17 @@ public class Support {
                 Display("Value is not acceptable, please try again.", false);
             }
         }
+
+        return rvalue;
+    }
+
+    public static Integer GetIntInput(Object prompt, Integer defaultValue){
+        Integer rvalue = defaultValue;
+        try
+        {
+            String inputStr = Input(prompt, false);
+            rvalue = ToInt(inputStr);
+        } catch (Exception e){}
 
         return rvalue;
     }
