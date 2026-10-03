@@ -2,7 +2,6 @@ public class Program {
     public static void main(String[] args) {
         Support.Clear();
 
-        
         Boolean flag = true;
         
         while (flag) {

@@ -1,5 +1,3 @@
-
-
 public class NumberGuess {
     private Boolean run_;
     private Integer randomNumber_;
