@@ -1,0 +1,5 @@
+{
+    "player" : "A",
+    "wall" : "O",
+    "goblin" : "X"
+}

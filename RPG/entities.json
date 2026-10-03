@@ -1,0 +1,24 @@
+{
+    "player" : {
+        "inventory" : {
+            "visible" : {
+                "sword" : {
+                    "damage" : 5
+                }
+            },
+            "invisible" : {
+
+            }
+        },
+        "options" : [
+            "use item",
+            "drop Item",
+            "take Item",
+            "go forward",
+            "go left",
+            "go right",
+            "go back",
+            "do nothing"
+        ]   
+    }
+}
