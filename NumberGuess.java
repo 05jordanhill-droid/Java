@@ -11,6 +11,7 @@ public abstract class NumberGuess {
         SetReduction(Math.round((max-min) / 2));
         SetBestGuess(min + GetReduction());
 
+        // Prevent guessing outside of range in tight ranges
         if (GetBestGuess() > max){
             SetBestGuess(max);
         } else if (GetBestGuess() < min){
@@ -21,6 +22,7 @@ public abstract class NumberGuess {
         SetHint("No Hints Right Now");
         SetRun(true);
     }
+    // Default Min of 1
     NumberGuess(Integer max){
         SetRandomNumber(Support.GetRandomInt(0, max));
         SetReduction(Math.round((max) / 2));
@@ -36,6 +38,7 @@ public abstract class NumberGuess {
         SetHint("No Hints Right Now");
         SetRun(true);
     }
+    // Manually set randomNum
     NumberGuess(Integer min, Integer max, Integer randomNum){
         SetRandomNumber(randomNum);
         SetReduction(Math.round((max-min) / 2));
@@ -78,6 +81,7 @@ public abstract class NumberGuess {
         run_ = run;
     }
     private void SetReduction(Integer reduction) {
+        // prevent values like 0.25 from being rounded to 0
         if(reduction == 0){
             reduction = 1;
         }
@@ -203,11 +207,5 @@ class AutoNumberGuess extends NumberGuess{
             Guess();
         }
     }
-
-    public void Run(Integer times){
-        for (int i = 0; i < times; i++) {
-            Run();
-        }
-    }    
 }
 
