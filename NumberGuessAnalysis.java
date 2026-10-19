@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+// THis takes the number guessing game and the mechanic of counting and best guesses into analyzing any patterns in how long it takes to find the answer using the best guess everytime for different ranges
 public class NumberGuessAnalysis {
     public List<Map<String, Integer>> hardestNumData = new ArrayList<>();
 
@@ -18,6 +19,7 @@ public class NumberGuessAnalysis {
     }
 
     // Single Data point
+    // Every range of numbers has number harder to or longer to take to guess when always using the best guess
     private static Map<String, Integer> FindHardestToGuess(Integer range){
         Map<String, Integer> hardestNumCount = new HashMap<>();
         
@@ -39,7 +41,7 @@ public class NumberGuessAnalysis {
         return hardestNumCount;
     }
 
-    // Graph Data Points
+    // Graph Data Points into an object
     private void EstablishData(Integer range, Integer base){
         Map<String, Integer> dataPoint = new HashMap<>();
 

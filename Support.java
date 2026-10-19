@@ -99,6 +99,7 @@ public class Support {
         return rvalue;
     }
     // Default Integer Value Input
+    // If I want my input to have a default value in the case of an invalid input given
     public static Integer GetIntInput(Object prompt, Integer defaultValue){
         Integer rvalue = defaultValue;
         try
@@ -207,6 +208,8 @@ public class Support {
         int thickness = 0;
         return GetLineCoordinates(pointA, pointB, thickness);
     }
+    // Getting just y = mx + b or just x = my + b in a small graph is cause significant data point skips from either y or x
+    // Getting both and combining them allows for a line that can be seen as a line
     public static List<int[]> GetYBaseLineCoordinates(int[] pointA, int[] pointB, int thickness)
     {
         // a^2 + b^2 = c^2     (a^2 + b^2)^(1/2) = c

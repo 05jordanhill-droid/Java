@@ -8,6 +8,8 @@ public abstract class NumberGuess {
 
     NumberGuess(Integer min, Integer max){
         SetRandomNumber(Support.GetRandomInt(min, max));
+        // The reduction helps determine what the best guess to make is
+        // Taking the min and max difference determines the length and half of that is the amount we'd want to reduce by for the best guess
         SetReduction(Math.round((max-min) / 2));
         SetBestGuess(min + GetReduction());
 
@@ -19,7 +21,7 @@ public abstract class NumberGuess {
         }
 
         UpdateReduction();
-        SetHint("No Hints Right Now");
+        SetHint("No Hints Right Now"); // You can't have a hint without first making at least one guess
         SetRun(true);
     }
     // Default Min of 1
@@ -39,6 +41,7 @@ public abstract class NumberGuess {
         SetRun(true);
     }
     // Manually set randomNum
+    // While unintuitive to manually set the random number, it helps for controlled analysis later on
     NumberGuess(Integer min, Integer max, Integer randomNum){
         SetRandomNumber(randomNum);
         SetReduction(Math.round((max-min) / 2));
@@ -106,7 +109,9 @@ public abstract class NumberGuess {
         SetReduction(Math.round(GetReduction() / 2));
     }
 
-    private void UpdateBestGoal(Integer direction){
+    private void UpdateBestGuess(Integer direction){
+        // Guess: 50, Hint: Lower
+        // This would then take the reduction and subtract/add the best guess by the reduction in the direction specified by the hint, in this case being lower, or -1
         SetBestGuess(GetBestGuess() + (direction * GetReduction()));
         
         UpdateReduction();
@@ -136,13 +141,14 @@ public abstract class NumberGuess {
     protected void Guess(Integer guess){
         Object check = CheckGuess(guess);
         if (check instanceof Integer direction){
-            UpdateBestGoal(direction);
+            UpdateBestGuess(direction);
         } else {
             SetRun(false);
         }
         IncreaseCount();
     }
 
+    // This class alone has the tools to run the game, but doesn't know HOW it should be run quite yet
     public abstract void Run();
 }
 
@@ -174,6 +180,7 @@ class PlayableNumberGuess extends NumberGuess{
         SetCount(0);
         while (GetRun()) {
             Guess();
+            // Only display a hint if the game is still running and if hints are enabled
             if (Hints() && GetRun()){
                 Hint();
             }
