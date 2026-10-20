@@ -4,7 +4,7 @@ This program takes the Number Guessing Game with choosing the minimal and maxima
 
 The purpose for writing this software is satiating my desire to find patterns. When making the auto number guesser I found that with a varying amount of guesses required to find the answer, that was data that I could chart. Charting this data led me to finding a relationship between the number of guesses and the maximal value when looking at each increase of the value from a base 2 perspective. This is likely due to how the algorithm pinpoints its guesses.
 
-[Software Demo Video](https://www.youtube.com/watch?v=aUHtwKzZuLY)
+[Software Demo Video](https://youtu.be/chT6MRYTS38)
 
 # Development Environment
 
